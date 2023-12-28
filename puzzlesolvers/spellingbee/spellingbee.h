@@ -17,7 +17,7 @@ class SpellingBee {
   SpellingBee(const SpellingBee&) = delete;
 
   // Returns words that match the characters provided.
-  std::set<absl::string_view> FindWords(std::set<char> characters);
+  std::set<absl::string_view> FindWords(std::set<char> characters, char required_char);
 
  private:
   const Dictionary& dictionary_;  // Not owned.

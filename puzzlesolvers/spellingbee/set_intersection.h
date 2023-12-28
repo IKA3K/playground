@@ -38,11 +38,11 @@ std::set<T> Intersection(std::vector<const std::set<T>*> sets) {
 
   int step_count = 0;
   while (!no_more_data()) {
-    if (step_count > 10000000) {
+    if (step_count > 100000000) {
       LOG(FATAL) << "Failed to finish within 10000000 steps";
     }
     for (int i = 0; i < sets.size(); ++i) {
-      int lowest_value_iter_index = 0;
+      int lowest_value_iter_index = i;
       auto lowest_value_iter = iterators[lowest_value_iter_index];
       if (lowest_value_iter == sets[i]->end()) {
         // Choose new lowest.
@@ -51,7 +51,7 @@ std::set<T> Intersection(std::vector<const std::set<T>*> sets) {
       }
       // Advance the lowest iterator in each set.
       bool is_same_value = true;
-      for (int j = 1; j < sets.size(); ++j) {
+      for (int j = i + 1; j < sets.size(); ++j) {
         ++step_count;
         auto next_iter = iterators[j];
         if (next_iter == sets[j]->end()) {

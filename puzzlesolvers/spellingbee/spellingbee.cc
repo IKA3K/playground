@@ -7,7 +7,8 @@ ABSL_FLAG(int, min_span, 4, "Require at least N characters per span");
 
 namespace puzzlesolvers {
   
-std::set<absl::string_view> SpellingBee::FindWords(std::set<char> characters) {
+std::set<absl::string_view> SpellingBee::FindWords(
+  std::set<char> characters, char required_char) {
   // Sanity check that characters only contains lowercase alpha.
   for (char c : characters) {
     if (!isalpha(c) || !islower(c)) {
@@ -41,9 +42,13 @@ std::set<absl::string_view> SpellingBee::FindWords(std::set<char> characters) {
         break;
       }
       std::string s;
+      s += required_char;
+      v.push_back(&words_by_char.at(required_char));
       while (span_start != span_end) {
-        s += *span_start;
-        v.push_back(&words_by_char.at(*span_start));
+        if (*span_start != required_char) {
+          s += *span_start;
+          v.push_back(&words_by_char.at(*span_start));
+        }
         ++span_start;
       }
       LOG(INFO) << "Looking for words w/combination " << s;
@@ -58,8 +63,12 @@ std::set<absl::string_view> SpellingBee::FindWords(std::set<char> characters) {
   std::set<absl::string_view> trimmed_output;
   int skipped_words;
   std::for_each(output.begin(), output.end(),
-                [&trimmed_output, &skipped_words, characters](
+                [&trimmed_output, &skipped_words, characters, required_char](
                     absl::string_view word) {
+    if (word.find(required_char) == std::string::npos) {
+      ++skipped_words;
+      return;
+    }
     for (char c : word) {
       if (characters.count(c) == 0) {
         ++skipped_words;
