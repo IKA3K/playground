@@ -1,4 +1,4 @@
-#include "puzzlesolvers/spellingbee/set_intersection.h"
+#include "puzzlesolvers/common/set_intersection.h"
 
 #include <string>
 

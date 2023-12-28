@@ -1,4 +1,4 @@
-#include "puzzlesolvers/spellingbee/dictionary.h"
+#include "puzzlesolvers/common/dictionary.h"
 
 #include <fstream>
 #include <string>

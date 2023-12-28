@@ -1,5 +1,5 @@
-#ifndef PUZZLESOLVERS_SPELLINGBEE_SET_INTERSECTION_H
-#define PUZZLESOLVERS_SPELLINGBEE_SET_INTERSECTION_H
+#ifndef PUZZLESOLVERS_COMMON_SET_INTERSECTION_H
+#define PUZZLESOLVERS_COMMON_SET_INTERSECTION_H
 
 #include <cstddef>
 #include <iterator>
@@ -90,4 +90,4 @@ std::set<T> Intersection(std::vector<const std::set<T>*> sets) {
 
 }  // namespace puzzlesolvers
 
-#endif  // PUZZLESOLVERS_SPELLINGBEE_SET_INTERSECTION_H
+#endif  // PUZZLESOLVERS_COMMON_SET_INTERSECTION_H
