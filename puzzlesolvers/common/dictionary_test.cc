@@ -8,6 +8,20 @@
 
 ABSL_FLAG(std::string, test_file_path, "/tmp/words.txt", "File that must exist for unit test to succeed.");
 
+TEST(DictionaryTest, TestManualLoad) {
+  // Chars: abcdegiklmnoruy
+  auto dict = puzzlesolvers::Dictionary(
+      {"armadillo", "book", "curmudgeon", "donkey"});
+  std::string expected_chars = "abcdegiklmnoruy";
+  for (char c : expected_chars) {
+    EXPECT_NE(dict.words_by_char().find(c), dict.words_by_char().end());
+  }
+  std::string unexpected_chars = "hjqstvwxz";
+  for (char c : unexpected_chars) {
+    EXPECT_EQ(dict.words_by_char().find(c), dict.words_by_char().end());
+  }
+}
+
 TEST(DictionaryTest, TestCantFindFile) {
   auto status_or_dict = puzzlesolvers::Dictionary::MakeDictionaryFromPath("/tmp/this_file_doesnt_exist");
   EXPECT_TRUE(absl::IsNotFound(status_or_dict.status()));

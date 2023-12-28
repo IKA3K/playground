@@ -13,8 +13,12 @@ namespace puzzlesolvers {
 // Intentionally references locations in memory; requires that a stable word pool is referenced.
 typedef absl::flat_hash_map<char, std::set<absl::string_view>> WordsByCharMap;
 
+// Dictionary of words addressable by character to solve char-by-char puzzle
+// games.
+// Designed to be used in combination with Intersection (set_intersection.h).
 class Dictionary {
  public:
+  // Exposed for allowing 
   explicit Dictionary(std::set<std::string> words); 
   virtual ~Dictionary() = default;
   Dictionary(const Dictionary&) = delete;

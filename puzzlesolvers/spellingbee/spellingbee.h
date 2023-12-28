@@ -10,6 +10,8 @@
 
 namespace puzzlesolvers {
 
+// Solver for the NYT Spelling Bee puzzle game.
+// https://www.nytimes.com/puzzles/spelling-bee
 class SpellingBee {
  public:
   explicit SpellingBee(const Dictionary& dictionary) : dictionary_(dictionary) {}
