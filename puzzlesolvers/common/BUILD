@@ -1,3 +1,7 @@
+package(
+  default_visibility = ["//visibility:public"]
+)
+
 cc_library(
   name = "dictionary",
   hdrs = ["dictionary.h"],

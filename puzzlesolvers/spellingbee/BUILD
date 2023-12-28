@@ -27,8 +27,8 @@ cc_binary(
   name = "spellingbee_main",
   srcs = ["spellingbee_main.cc"],
   deps = [
-    ":dictionary",
     ":spellingbee",
+    "//puzzlesolvers/common:dictionary",
     "@com_google_absl//absl/flags:flag",
     "@com_google_absl//absl/flags:parse",
     "@com_google_absl//absl/strings",

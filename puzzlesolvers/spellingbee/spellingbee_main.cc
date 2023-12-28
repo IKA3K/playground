@@ -5,8 +5,7 @@
 #include "absl/log/log.h"
 #include "absl/status/status.h"
 #include "absl/strings/string_view.h"
-#include "dictionary.h"
-#include "puzzlesolvers/spellingbee/dictionary.h"
+#include "puzzlesolvers/common/dictionary.h"
 #include "puzzlesolvers/spellingbee/spellingbee.h"
 #include "spellingbee.h"
 

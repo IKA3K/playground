@@ -1,7 +1,7 @@
 #include "puzzlesolvers/spellingbee/spellingbee.h"
 
 #include "absl/flags/flag.h"
-#include "puzzlesolvers/spellingbee/set_intersection.h"
+#include "puzzlesolvers/common/set_intersection.h"
 
 ABSL_FLAG(int, min_span, 4, "Require at least N characters per span");
 

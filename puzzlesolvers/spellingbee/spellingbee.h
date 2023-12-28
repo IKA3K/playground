@@ -1,7 +1,7 @@
 #ifndef PUZZLESOLVERS_SPELLINGBEE_SPELLINGBEE_H
 #define PUZZLESOLVERS_SPELLINGBEE_SPELLINGBEE_H
 
-#include "puzzlesolvers/spellingbee/dictionary.h"
+#include "puzzlesolvers/common/dictionary.h"
 
 #include <set>
 #include <string>
