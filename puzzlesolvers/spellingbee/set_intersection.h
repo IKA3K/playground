@@ -30,20 +30,17 @@ std::set<T> Intersection(std::vector<const std::set<T>*> sets) {
   auto no_more_data = [&iterators, &sets] () {
     for (int i = 0; i < sets.size(); ++i) {
       if (iterators[i] != sets[i]->end()) {
-        LOG(INFO) << i << ": not at end";
         return false;
       }
     }
-    LOG(INFO) << "At end";
     return true;
   };
 
   int step_count = 0;
   while (!no_more_data()) {
-    if (step_count > 100000) {
-      LOG(FATAL) << "Failed to finish within 100000 steps";
+    if (step_count > 10000000) {
+      LOG(FATAL) << "Failed to finish within 10000000 steps";
     }
-    LOG(INFO) << "starting loop";
     for (int i = 0; i < sets.size(); ++i) {
       int lowest_value_iter_index = 0;
       auto lowest_value_iter = iterators[lowest_value_iter_index];
@@ -70,17 +67,11 @@ std::set<T> Intersection(std::vector<const std::set<T>*> sets) {
       }  // j
       if (is_same_value) {
         output.insert(*lowest_value_iter);
-        LOG(INFO) << "Inserting found word " << *lowest_value_iter;
         // Advance all iterators again.
         for (int k = 0; k < sets.size(); ++k) {
           ++step_count;
           if (iterators[k] != sets[k]->end()) {
             ++iterators[k];
-            if (iterators[k] != sets[k]->end()) {
-              LOG(INFO) << k << ": pointing at word " << *iterators[k];
-            } else {
-              LOG(INFO) << k << ": at end";
-            }
           }
         }
         // Restart the loop from the first set.
@@ -89,19 +80,11 @@ std::set<T> Intersection(std::vector<const std::set<T>*> sets) {
       // If they're not the same value, step forward the most behind iterator.
       if (lowest_value_iter != sets[lowest_value_iter_index]->end()) {
         ++iterators[lowest_value_iter_index];
-        LOG(INFO) << "no match";
       } else {
-        LOG(INFO) << "at end";
         break;
       }
     }  // i
   }  // !no_more_data
-  if (output.size()) {
-    LOG(INFO) << "Finished computing intersection w/"
-              << output.size() << " results in " << step_count << " steps";
-  } else {
-    LOG(INFO) << "no matches in " << step_count << " steps";
-  }
   return output;
 }
 

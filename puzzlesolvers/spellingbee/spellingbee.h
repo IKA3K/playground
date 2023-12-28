@@ -5,7 +5,8 @@
 
 #include <set>
 #include <string>
-#include <vector>
+
+#include "absl/strings/string_view.h"
 
 namespace puzzlesolvers {
 
@@ -16,7 +17,7 @@ class SpellingBee {
   SpellingBee(const SpellingBee&) = delete;
 
   // Returns words that match the characters provided.
-  std::vector<std::string> FindWords(std::set<char> characters);
+  std::set<absl::string_view> FindWords(std::set<char> characters);
 
  private:
   const Dictionary& dictionary_;  // Not owned.

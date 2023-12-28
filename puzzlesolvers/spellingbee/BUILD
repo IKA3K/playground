@@ -46,7 +46,9 @@ cc_library(
   hdrs = ["spellingbee.h"],
   srcs = ["spellingbee.cc"],
   deps = [
-    "@com_google_absl//absl/flag",
+    ":dictionary",
+    ":set_intersection",
+    "@com_google_absl//absl/flags:flag",
     "@com_google_absl//absl/status",
     "@com_google_absl//absl/strings",
   ],
@@ -57,7 +59,7 @@ cc_test(
   srcs = ["spellingbee_test.cc"],
   deps = [
     ":spellingbee",
-    "@com_google_absl//absl/flag",
+    "@com_google_absl//absl/flags:flag",
     "@com_google_absl//absl/status",
     "@com_google_absl//absl/strings",
     "@com_google_googletest//:gtest_main",
@@ -67,5 +69,11 @@ cc_test(
 cc_binary(
   name = "spellingbee_main",
   srcs = ["spellingbee_main.cc"],
-  deps = [":spellingbee"]
+  deps = [
+    ":dictionary",
+    ":spellingbee",
+    "@com_google_absl//absl/flags:flag",
+    "@com_google_absl//absl/flags:parse",
+    "@com_google_absl//absl/strings",
+  ],
 )

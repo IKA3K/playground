@@ -33,10 +33,7 @@ Dictionary::Dictionary(std::set<std::string> words) {
     }
 
     for (const char c : word) {
-      auto [iter, inserted] = words_by_char_[c].insert(word);
-      if (inserted) {
-        LOG_EVERY_N(INFO, 1000) << "Inserted word: " << *iter;
-      }
+      words_by_char_[c].insert(word);
     }
   }
   LOG(INFO) << "Created dictionary with " << words_.size() << " (" << words_skipped << " skipped).";
