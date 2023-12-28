@@ -24,21 +24,18 @@ Dictionary::Dictionary(std::set<std::string> words) {
       continue;
     }
 
-    bool is_ok = true;
-    for (const char c : word) {
-      if (!isalpha(c) || !islower(c)) {
-        ++words_skipped;
-        is_ok = false;
-        break;
-      }
+    bool is_ok = word.end() == std::find_if(word.begin(), word.end(), [](char c) {
+      return !isalpha(c) || !islower(c);
+    });
+    if (!is_ok) {
+      ++words_skipped;
+      continue;
     }
-    if (is_ok) {
-      for (const char c : word) {
-        // Intentionally reference location in memory.
-        auto [iter, inserted] = words_by_char_[c].insert(absl::string_view(word.c_str()));
-        if (inserted) {
-          LOG_EVERY_N(INFO, 1000) << "Inserted word: " << *iter;
-        }
+
+    for (const char c : word) {
+      auto [iter, inserted] = words_by_char_[c].insert(word);
+      if (inserted) {
+        LOG_EVERY_N(INFO, 1000) << "Inserted word: " << *iter;
       }
     }
   }

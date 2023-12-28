@@ -10,6 +10,7 @@
 
 namespace puzzlesolvers {
 
+// Intentionally references locations in memory; requires that a stable word pool is referenced.
 typedef absl::flat_hash_map<char, std::set<absl::string_view>> WordsByCharMap;
 
 class Dictionary {
