@@ -1,0 +1,1 @@
+#include "puzzlesolvers/spellingbee/spellingbee.h"
