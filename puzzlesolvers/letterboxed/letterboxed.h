@@ -4,11 +4,21 @@
 #include <set>
 #include <string>
 
+#include "absl/status/statusor.h"
 #include "absl/strings/string_view.h"
 #include "puzzlesolvers/common/dictionary.h"
 
 namespace puzzlesolvers {
 
+inline std::set<char> merged_sets(std::vector<std::set<char> > others) {
+  std::set<char> s;
+  for (auto other : others) {
+    s.insert(other.begin(), other.end());
+  }
+  return s;
+}
+
+// Struct for holding the puzzle.
 struct Box {
   std::set<char> top;
   std::set<char> right;
@@ -20,7 +30,7 @@ struct Box {
   // Returns true if the word provided by `s` can be produced by this graph.
   bool IsValidWord(absl::string_view s);
   // Returns the next set of characters that can be selected from
-  std::set<char> Next(char c);
+  absl::StatusOr<std::set<char> > Next(char c);
 };
 
 // Convenience wrapper for a string of words.
