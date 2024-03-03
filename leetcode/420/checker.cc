@@ -127,7 +127,7 @@ int pwdchecker(absl::string_view s) {
     // See if we can reuse any changes.
     int reused_changes = 0;
     for (bool* has_char : fix_up) {
-      if (reused_changes <= min_changes) {
+      if (reused_changes < min_changes && !*has_char) {
         ++reused_changes;
         *has_char = true;
       }
