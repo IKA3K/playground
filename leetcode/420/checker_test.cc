@@ -13,8 +13,8 @@ TEST(CheckerTest, MadeUpTestCases) {
   // Change 2 characters for to get all types of chars.
   EXPECT_EQ(pwdchecker("AAAAAA"), 2);
   // Same as above except length not enough.
-  EXPECT_EQ(pwdchecker("11111"), 2);
-  EXPECT_EQ(pwdchecker("aaaa"), 3);
+  EXPECT_EQ(pwdchecker("11111"), 2);  // Change a '1' to 'A', add 'a' (2).
+  EXPECT_EQ(pwdchecker("aaaa"), 3);  // Change a 'a' to 'A', add two '1' (3).
   EXPECT_EQ(pwdchecker("aaa"), 4);
   EXPECT_EQ(pwdchecker("aa"), 4);
   EXPECT_EQ(pwdchecker("a"), 5);
