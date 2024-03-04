@@ -20,16 +20,16 @@ int find_max_length(std::vector<int>& nums) {
   /**
     Thinking out aloud:
 
-    The easiest way to do this it seems is to have just a single iterator and a
-    few bookkeeping vars:
+    What's the worst possible scenario? That would have to be values in forever
+    decreasing order, since it's possible to make a longer array than if iterating
+    forwards. e.g.
 
-    1. Iter pointing at the last value that ended a non-decreasing range.
-    2. Lookahead iter used for checking next values for a large enough value
-    3. Running summation of values used by iter #2.
-    4. Running count of how many values are removed in the process.
+    [6,5,5,4,3,2,1], if going forward only, would yield [26]
+    but the optimized solution is [6,10,10].
 
-    If iter #2 finds a value larger than the summation #3, then go back to using iter
-    #1.
-   */
-  return 0;
+    I think the solution should revolve around the largest existing number and largest
+    sums in the array, since that influences how we construct any other value.
+
+    e.g. [1,2,8,6,10,5,2,3] would result in [1,2,14,20]
+  */
 }
