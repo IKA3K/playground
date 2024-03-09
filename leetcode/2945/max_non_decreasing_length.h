@@ -4,6 +4,6 @@
 #include <vector>
 
 // 2945: https://leetcode.com/problems/find-maximum-non-decreasing-array-length/
-int find_max_length(std::vector<int>& nums);
+int find_max_length(const std::vector<int>& nums);
 
 #endif  // MAX_NON_DECREASING_LENGTH_H_

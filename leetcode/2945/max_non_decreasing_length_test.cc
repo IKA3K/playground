@@ -1,5 +1,7 @@
 #include "max_non_decreasing_length.h"
 
+#include <vector>
+
 #include "gtest/gtest.h"
 
 TEST(MaxNonDecreasingLengthTest, ProvidedTestCases) {
@@ -16,7 +18,7 @@ TEST(MaxNonDecreasingLengthTest, ProvidedTestCases) {
     And if we choose subarray [5,2,2] and replace it with [9] it becomes non-decreasing. 
     So the answer is 1.
     */
-  EXPECT_EQ(find_max_length({5,2,2}), 1)
+  EXPECT_EQ(find_max_length({5,2,2}), 1);
   /**
     Example 2:
 
@@ -34,4 +36,28 @@ TEST(MaxNonDecreasingLengthTest, ProvidedTestCases) {
     Because the given array is not non-decreasing, the maximum possible answer is 3.
    */
   EXPECT_EQ(find_max_length({4,3,2,6}), 3);
+}
+
+TEST(MaxNonDecreasingLengthTest, MyTestCases) {
+  /**
+    [1,3,3,2,3,6] is clearly better as [1,3,3,5,6] (5) and not
+    [1,3,5,9].
+    */
+  EXPECT_EQ(find_max_length({1,3,3,2,3,6}), 5);
+
+  /**
+    [1,3,3,2,5,6] is clearly better as [1,3,5,5,6] (5) and not
+    [1,3,3,7,6].
+    */
+  EXPECT_EQ(find_max_length({1,3,3,2,5,6}), 5);
+
+  /**
+    If we combine both situations using offsets, like:
+    [1,3,3,2,5,6,7,6,15], then this should be [1,3,5,5,6,13,15] (7)
+      */
+  EXPECT_EQ(find_max_length({1,3,3,2,5,6,7,6,15}), 7);
+}
+
+TEST(MaxNonDecreasingLengthTest, TrapTestCases) {
+  EXPECT_EQ(find_max_length({5,2,2,8}), 2);
 }

@@ -1,6 +1,9 @@
 #include "max_non_decreasing_length.h"
 
-int find_max_length(std::vector<int>& nums) {
+#include "absl/log/log.h"
+#include "absl/strings/str_join.h"
+
+int find_max_length(const std::vector<int>& nums) {
   /**
     Problem statement:
 
@@ -18,18 +21,44 @@ int find_max_length(std::vector<int>& nums) {
     */
 
   /**
-    Thinking out aloud:
+    There are corner cases where rolling backwards is preferable, e.g.:
+    [1,3,3,2,5,6] becomes [1,3,5,5,6] in the best case, and [1,3,3,7,6]
+    in the walk-ahead only case.
 
-    What's the worst possible scenario? That would have to be values in forever
-    decreasing order, since it's possible to make a longer array than if iterating
-    forwards. e.g.
+    Meanwhile [1,3,3,2,3,6] is clearly better as [1,3,3,5,6] and not
+    [1,3,5,9].
 
-    [6,5,5,4,3,2,1], if going forward only, would yield [26]
-    but the optimized solution is [6,10,10].
-
-    I think the solution should revolve around the largest existing number and largest
-    sums in the array, since that influences how we construct any other value.
-
-    e.g. [1,2,8,6,10,5,2,3] would result in [1,2,14,20]
+    If we combine both situations using offsets, like:
+    [1,3,3,2,5,6,7,6,15], then we could probably try both metholodiges
+    at the same time. So for this case, once we notice the drop at 2,
+    we save iter pointing at 3, then find the next value 5. Then do
+    either 3+2, and 2+5, and see which results in more elements.
   */
+  if (nums.empty()) {
+    return 0;
+  }
+  std::vector<int> new_nums = {nums.front()};
+  new_nums.reserve(nums.size());
+  for (int i = 1; i < nums.size(); ++i) {
+    // Special case for adding backwards.
+    if (new_nums.back() > nums[i]) {
+      if (i+1 < nums.size() && (new_nums.back() + nums[i]) <= nums[i+1]) {
+        // Collapse existing value to make new value.
+        new_nums.back() += nums[i];
+      } else {
+        int rolling_sum = nums[i];
+        while (rolling_sum < new_nums.back() && (++i) < nums.size()) {
+          rolling_sum += nums[i];
+        }
+        if (rolling_sum >= new_nums.back()) {
+          new_nums.push_back(rolling_sum);
+        }
+      }
+      continue;
+    }
+    new_nums.push_back(nums[i]);
+  }
+
+  LOG(ERROR) << "New array: [" << absl::StrJoin(new_nums, ", ") << "]";
+  return new_nums.size();
 }
