@@ -13,18 +13,16 @@ int max_spending(const std::vector<std::vector<int> >& values) {
     auto min_iter = v.begin();
     int min_price = std::numeric_limits<int>::max();
     for (auto iter = v.begin(); iter != v.end(); ++iter) {
-      if (!iter->empty()) {
-        LOG(ERROR) << "Num elements in iter: " << iter->size();
-        if (iter->back() < min_price) {
-          min_price = iter->back();
-          min_iter = iter;
-        }
+      if (!iter->empty() && iter->back() < min_price) {
+        min_price = iter->back();
+        min_iter = iter;
       }
     }
     int min_value = min_iter->back();
     if (min_iter->size() > 1) {
-      min_iter->resize(min_iter->size() - 1);
+      min_iter->pop_back();
     } else {
+      // Avoid iterating over this obj as there's nothing left to return.
       v.erase(min_iter);
     }
     return min_value;
