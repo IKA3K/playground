@@ -17,8 +17,7 @@ int num_beautiful_integers(int low, int high, int k) {
   auto digit_distribution = [](int i) -> std::pair<int, int> {
     int odd = 0, even = 0;
     do {
-      int last_digit = i % 10;
-      last_digit % 2 ? ++odd : ++even;
+      i % 2 ? ++odd : ++even;
       i /= 10;
     } while (i >= 1);
     return std::make_pair(odd, even);
